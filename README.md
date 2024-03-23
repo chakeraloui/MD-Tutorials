@@ -1,6 +1,11 @@
 
+                                         MDSimulation Tutorial
+
+
+
 
 # Hardware/Software requirements for the tutorial
+
 - REQUIRED: Access to a Linux-like machine, ideally Ubuntu OS;
 - REQUIRED: Gromacs v. 5.1.4, [intallations instructions](http://www.gromacs.org/Downloads/Installation_Instructions);
 - REQUIRED: VMD v. 1.9.4, [intallations instructions](https://www.biostars.org/p/196147/);
@@ -12,7 +17,7 @@
 
 
 
-# 3. How to build and run GROMACS
+#  How to build and run GROMACS
 
 GROMAX installation instructions [here](http://www.gromacs.org/Documentation/Installation_Instructions_5.0). At first, download latest version of GROMAX.
 Installation requires administration rights. This is the way of local installation:
@@ -302,7 +307,7 @@ The second phase of this tutorial consists of actually simulating the system we 
 
 The simulation procedure involves multiple steps.
 
-## 1. Energy minimisation
+## 2.1.Energy minimisation
 This procedure aims to minimize the potential energy of the system by adjusting the atomic coordinates. It will stabilize the overall structure and avoid steric clashes.
 
 Before running a “useful” simulation, we will want to equilibrate our system. In the previous session, we added water and ions to our system to random positions within our simulation box. This may mean that some of their positions or orientations are not physically likely. For example when randomly adding water molecules to our simulation box, we may have ended up with a number of molecules whose oxygen atoms are close to one another, or with an ion in close proximity to a part of our protein with a similar charge. By equilibrating our system before running it, we can push our simulation towards a more physically realistic state.
@@ -375,7 +380,7 @@ xmgrace -nxy volume.xvg -hdevice PNG -hardcopy -printfile volume.png
 Now that we have equilibrated our system, we can move on to simulating it in more physical conditions. We will run a simulation in the isobaric-isothermic ensemble (fixed pressure and temperature).
 
 
-## 2. Running NVT equilibration
+## 2.2.Running NVT equilibration
 After successful energy minimization, confirming the system's geometry and solvent orientation, we move on to equilibrating the solvent and ions surrounding the protein before initiating real dynamics. This initial phase is performed within an NVT ensemble (constant Number of particles, Volume, and Temperature), also known as "isothermal-isochoric" or "canonical" ensemble. The duration of this procedure depends on the system's composition, but in NVT, the system's temperature should stabilize at the desired value over time.
 
 In this stage, we will constrain the water molecules and allow only the movement of water and ions. We will utilize the “nvt.mdp” file, which contains the input parameters necessary for NVT equilibration.
@@ -420,7 +425,7 @@ This will output an xvg file (nvt_rmsd.xvg) with the backbone to backbone RMSD f
 xmgrace nvt_rmsd.xvg
 ```
 The RMSD quickly converges to a stable value signaling that the system has equilibrated at the desired temperature. We can move to the next phase
-## 3. Running NPT   equilibration
+## 2.3.Running NPT  equilibration
 
 Following the NVT equilibration step, which stabilized the system's temperature, the next phase involves equilibrating the system's pressure under an NPT ensemble. This ensemble maintains constant values for the Number of particles, Pressure, and Temperature. During this step, only water and ions are allowed to move.
 
@@ -462,7 +467,7 @@ Type "23 0" at the prompt to select the density of the system and exit.
 Then we will unfix protein. Create npt1.mdp from npt.mdp commenting the second string in it.
 
 
-## MD Calculation
+# 3.MD Calculation
 The production run will still be carried out within the NPT ensemble using the "V-rescale" thermostat and the "Parrinello-Rahman" barostat.
 
 For the purpose of demonstration, we are just going to perform a 1 ns simulation. Keep in mind that in a real experiment you will need to run hundreds of ns to extract useful information from your system.
