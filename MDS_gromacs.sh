@@ -45,7 +45,7 @@ FoldX --command=RepairPDB --pdb=$1.pdb
 echo "Assessing the protonation states of the protein.."
 propka3 $1\_clean.pdb
 
-echo "Selecting the Appropriate Force Field.."
+echo "Fetching  the CHARMM force field.."
 
 wget http://mackerell.umaryland.edu/download.php?filename=CHARMM_ff_params_files/charmm36_ljpme-jul2022.ff.tgz
 
