@@ -82,6 +82,7 @@ Preparing a system for GROMACS
 
 
 # 1.System preparation
+
 The initial phase of an MD (Molecular Dynamics) simulation involves the preparation of the system for analysis. This entails establishing an initial configuration of the system before commencing the experiment. This decision must be made meticulously as it significantly impacts the outcome of the simulation. Beginning with an inaccurate structure could result in substantial errors in subsequent stages.
 
 The structure can be derived from experimental or computational techniques, or a combination of both. Ideally, the goal is to obtain a starting structure that closely resembles equilibrium configurations. This facilitates the reduction of the time required to stabilize the system during the equilibration phase.
@@ -166,7 +167,7 @@ If the system contains atoms with alternate locations, then they need to be remo
 
 These are "alternative locations", meaning that in high resolution structure, you may observe different conformations in the electron density. Depending on the programs you are using, you either need to set some parameter to tell the program to ignore all but the most highly occupied conformation, or you need to pre-process the PDB files to remove the secondary locations. Many structure visualisation programs contain options to select, and by extension, selectively delete alternative locations - check the manual for the program you are using
 * In VMD, you can use the PDB plugin to do so. https://www.ks.uiuc.edu/Research/vmd/plugins/molfile/pdbplugin.html
-You can also use PDBtools in Phenix https://www.phenix-online.org/documentation/reference/pdbtools.html
+* You can also use PDBtools in Phenix https://www.phenix-online.org/documentation/reference/pdbtools.html
 * In Rosetta, a simple python script can be used to clean up a pdb file:
 tools/protein_tools/scripts/clean_pdb.py   - Prepare PDBs for Rosetta by cleaning and renumbering residues.
 https://www.rosettacommons.org/docs/latest/application_documentation/tools/Tools
