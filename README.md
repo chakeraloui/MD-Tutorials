@@ -96,11 +96,11 @@ Once the initial configuration is obtained, several additional steps are necessa
 
 In this section we will describe how to choose and prepare the input files for a system before to running a Gromacs simulation.
 
-As an example we will be looking at xxxx. This is an enzyme used in digestion. The PDB entry can be found here and the PDB file can be downloaded from the protein data bank using:
+As an example we will be looking at 5pep. This is an enzyme used in digestion. The PDB entry can be found here and the PDB file can be downloaded from the protein data bank using:
 
 
 ```bash
-wget http://files.rcsb.org/download/xxxx.pdb
+wget http://files.rcsb.org/download/5pep.pdb
 ```
 NOTE: The file can contain additional molecules that should be removed before proceeding further.
 
@@ -188,9 +188,12 @@ For this tutorial, we will utilize the CHARMM  force field. To do this, we'll vi
 
 
 Download this file:
-
 > charmm36-jul2022.ff.tgz
 
+or just type:
+```bash
+wget http://mackerell.umaryland.edu/download.php?filename=CHARMM_ff_params_files/charmm36_ljpme-jul2022.ff.tgz
+```
 Once the Force Field software is downloaded, extract its contents into the current working directory. This completes the installation process.  
 
 
