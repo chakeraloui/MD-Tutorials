@@ -3,7 +3,7 @@
 
 
 
-# Hardware/Software requirements for the tutorial
+#1.Hardware/Software requirements for the tutorial
 
 - REQUIRED: Access to a Linux-like machine, ideally Ubuntu OS;
 - REQUIRED: Gromacs v. 5.1.4, [intallations instructions](http://www.gromacs.org/Downloads/Installation_Instructions);
@@ -16,74 +16,11 @@
 
 
 
-#  How to build and run GROMACS
-
-GROMAX installation instructions [here](http://www.gromacs.org/Documentation/Installation_Instructions_5.0). At first, download latest version of GROMAX.
-Installation requires administration rights. This is the way of local installation:
-
-```bash
-tar xfz gromacs-5.1.4.tar.gz
-cd gromacs-5.1.4
-mkdir build
-cd build
-cmake .. -DGMX_BUILD_OWN_FFTW=ON -DCMAKE_INSTALL_PREFIX=/home/usr/dir_where_gromacx_will_be
-make
-make check
-make install
-source /usr/local/gromacs/bin/GMXRX 
-``` 
-
-(In my case - source /home/aloui/Soft/bin/GMXRC)
-
-Everytime you will use GROMAX, you need to put the last string (with your address)
-
-## Enabling Optimizations for Your Simulation
-
-The optimizations in this post are not yet enabled by default. The new code paths have been verified by the standard GROMACS regression tests, but still lack substantial “real-world” testing.
-
-GROMACS should be built using its internal threadMPI library instead of any external MPI library. For more information, see the Multi-GPU Optimization section earlier.
-
-At runtime, the optimizations can be fully enabled by setting the following three environment variables to any non-NULL value in your shell (shown for bash shell here).
-
-For halo exchange communications between PP tasks, use the following command:
-
-```bash
-export GMX_GPU_DD_COMMS=true
-
-```
-For communications between PME and PP tasks, use the following command:
-
-```bash
-export GMX_GPU_PME_PP_COMMS=true
-
-```
-To enable the update and constraints part of the timestep for multi-GPU:
-
-```bash
-export GMX_FORCE_UPDATE_DEFAULT_GPU=true
-
-```
-The combination of these settings triggers all optimizations, including dependencies such as GPU-acceleration of buffer operations.
-
-When running on a single GPU, only GMX_FORCE_UPDATE_DEFAULT_GPU is required (where for single-GPU only, this can alternatively be enabled by adding the -update gpu option to the mdrun command).
-
-In both single and multi GPU cases, it is also necessary to assign the three classes of force calculations to the GPU through the following options to mdrun:
-
-```bash
--nb gpu -bonded gpu -pme gpu
-
-```
-On multi-GPU, the -npme 1 option is also required to limit PME to a single GPU. 
-
-Preparing a system for GROMACS
+# 2.Preparing a system for GROMACS
 
  this process could apply to a general system where you start from a .pdb file and end up with a set of input files, ready to run a GROMACS simulation.
 
-
-
-# 1.System preparation
-
-The initial phase of an MD (Molecular Dynamics) simulation involves the preparation of the system for analysis. This entails establishing an initial configuration of the system before commencing the experiment. This decision must be made meticulously as it significantly impacts the outcome of the simulation. Beginning with an inaccurate structure could result in substantial errors in subsequent stages.
+  This entails establishing an initial configuration of the system before commencing the experiment. This decision must be made meticulously as it significantly impacts the outcome of the simulation. Beginning with an inaccurate structure could result in substantial errors in subsequent stages.
 
 The structure can be derived from experimental or computational techniques, or a combination of both. Ideally, the goal is to obtain a starting structure that closely resembles equilibrium configurations. This facilitates the reduction of the time required to stabilize the system during the equilibration phase.
 
@@ -92,7 +29,7 @@ Once the initial configuration is obtained, several additional steps are necessa
     Defining a simulation box: Initially, a virtual box containing the molecule is established. Periodic boundary conditions (PBC) are then implemented to simulate bulk properties. This involves generating replicas of the box in all directions, enabling the simulation of a large system from a smaller box.
 
 
-## 1.1.download PDB File
+## 2.1.download PDB File
 
 In this section we will describe how to choose and prepare the input files for a system before to running a Gromacs simulation.
 
@@ -106,7 +43,7 @@ NOTE: The file can contain additional molecules that should be removed before pr
 
 
 
-## 1.2.Validation of the system
+## 2.2.Validation of the system
 
 Before applying the Preparation step in GROMACS, we first need to validate and preprocess the system.
 
@@ -134,7 +71,7 @@ FoldX --command=RepairPDB --pdb=RP.pdb
     PDB_Repair.fxout -> energies of the repaired residues
     PDB_Repair.pdb -> repaired Pdb
 
-## 1.3.Assessing the protonation states of the protein and preparing the protein 
+## 2.3.Assessing the protonation states of the protein and preparing the protein 
 
 There are several methods to assess the protonation state of the residues in a protein (for further information, here). For example, the H++ server and PROPKA software can help you in the future. We are only going to use PROPKA .
 Install propka 
@@ -159,7 +96,7 @@ When preparing a protein, we have to compare each one of the predicted pKa value
     This step is especially relevant when you are simulating catalytic cycles, where the reaction mechanism often involves proton transfer events. Please check the literature on your target protein before you start to run your simulations.
 
 
-## 1.4.Removing alternate locations if existed
+## 2.4.Removing alternate locations if existed
 
 If the system contains atoms with alternate locations, then they need to be removed. The  system used in this tutorial does not have any alternate locations so you do not need to apply this step.
 
@@ -178,7 +115,7 @@ alter all, alt=' '
 
 
 
-## 1.5.Selecting the Appropriate Force Field
+## 2.5.Selecting the Appropriate Force Field
 
 Next, we must select the force field to simulate the system.
 
@@ -198,7 +135,7 @@ Once the Force Field software is downloaded, extract its contents into the curre
 
 
 
-## 1.6.Removing Water Molecules
+## 2.6.Removing Water Molecules
 
 Our next step involves removing the existing water molecules from the system.
 
@@ -227,7 +164,7 @@ Relaxation:
 
 The system is now prepared for relaxation. Before initiating dynamics, it's essential to verify that the system is free of steric clashes or inappropriate geometry. This is achieved through a process known as energy minimization (EM)
 
-## 1.7.Creating a Gromacs topology (PDB2GMX)
+## 2.7.Creating a Gromacs topology (PDB2GMX)
 
 
 We are now ready to generate a GROMACS topology for the system. The GROMACS "pdb2gmx" command is employed for this purpose, converting a PDB coordinate file into a GROMACS topology file while also creating a processed structure file in the GROMACS format (.gro).
@@ -273,7 +210,7 @@ The size of the box needs to be selected with great care. When using periodic bo
 If you now look at the new 5pep-box.gro file you should see the box dimensions have changed - the box is now cubic.
 
 
-## 1.7.Solvate the system
+## 2.7.Solvate the system
 
 
  Now we need to add solvent to the system , we are going to use water as a solvent.
@@ -284,7 +221,7 @@ gmx solvate -cp 5pep-box.gro -cs spc216.gro -o 5pep-solv.gro -p topol.top
 ```
 -cs spc216.gro determines the water structure file The configuration of the protein (-cp) is contained in the output of the previous editconf step, and the configuration of the solvent (-cs) is part of the standard GROMACS installation.
 
-## 1.8.Neutralize the system
+## 2.8.Neutralize the system
 
  
 
@@ -305,12 +242,12 @@ gmx genion -s ions.tpr -o system.gro -p topol.top -pname NA -nname CL -neutral -
 ```
 
 When it is promted choose "SOL" (17). It will replace solvent molecules with positive ions. -pname and -nname defines names of positive and negative charges -np defines the amount of the positive charges -nn defines the amount of negative charges
-# 2.Simulation
+# 3.Simulation
 The second phase of this tutorial consists of actually simulating the system we prepared.
 
 The simulation procedure involves multiple steps.
 
-## 2.1.Energy minimisation
+## 3.1.Energy minimisation
 This procedure aims to minimize the potential energy of the system by adjusting the atomic coordinates. It will stabilize the overall structure and avoid steric clashes.
 
 Before running a “useful” simulation, we will want to equilibrate our system. In the previous session, we added water and ions to our system to random positions within our simulation box. This may mean that some of their positions or orientations are not physically likely. For example when randomly adding water molecules to our simulation box, we may have ended up with a number of molecules whose oxygen atoms are close to one another, or with an ion in close proximity to a part of our protein with a similar charge. By equilibrating our system before running it, we can push our simulation towards a more physically realistic state.
@@ -383,7 +320,7 @@ xmgrace -nxy volume.xvg -hdevice PNG -hardcopy -printfile volume.png
 Now that we have equilibrated our system, we can move on to simulating it in more physical conditions. We will run a simulation in the isobaric-isothermic ensemble (fixed pressure and temperature).
 
 
-## 2.2.Running NVT equilibration
+## 3.2.Running NVT equilibration
 After successful energy minimization, confirming the system's geometry and solvent orientation, we move on to equilibrating the solvent and ions surrounding the protein before initiating real dynamics. This initial phase is performed within an NVT ensemble (constant Number of particles, Volume, and Temperature), also known as "isothermal-isochoric" or "canonical" ensemble. The duration of this procedure depends on the system's composition, but in NVT, the system's temperature should stabilize at the desired value over time.
 
 In this stage, we will constrain the water molecules and allow only the movement of water and ions. We will utilize the “nvt.mdp” file, which contains the input parameters necessary for NVT equilibration.
@@ -428,7 +365,7 @@ This will output an xvg file (nvt_rmsd.xvg) with the backbone to backbone RMSD f
 xmgrace nvt_rmsd.xvg
 ```
 The RMSD quickly converges to a stable value signaling that the system has equilibrated at the desired temperature. We can move to the next phase
-## 2.3.Running NPT  equilibration
+## 3.3.Running NPT  equilibration
 
 Following the NVT equilibration step, which stabilized the system's temperature, the next phase involves equilibrating the system's pressure under an NPT ensemble. This ensemble maintains constant values for the Number of particles, Pressure, and Temperature. During this step, only water and ions are allowed to move.
 
@@ -470,7 +407,7 @@ Type "23 0" at the prompt to select the density of the system and exit.
 Then we will unfix protein. Create npt1.mdp from npt.mdp commenting the second string in it.
 
 
-# 3.MD Calculation
+# 4.MD Calculation
 The production run will still be carried out within the NPT ensemble using the "V-rescale" thermostat and the "Parrinello-Rahman" barostat.
 
 For the purpose of demonstration, we are just going to perform a 1 ns simulation. Keep in mind that in a real experiment you will need to run hundreds of ns to extract useful information from your system.
