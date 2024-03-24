@@ -134,91 +134,92 @@ for more information visit this [tutorial](https://developer.nvidia.com/blog/cre
 
 1.1.If you want Chimera to be used by multiple users:
 
-            Install Chimera as an administrator.
+  Install Chimera as an administrator.
 
-        1.2. Download [Chimera release](https://www.cgl.ucsf.edu/chimera/download.html);
+1.2. Download [Chimera release](https://www.cgl.ucsf.edu/chimera/download.html);
 
-            We recommend that you use the latest production release.
-            A small minority of browsers may download the file as chimera-get.py. If yours does, rename the file to chimera-installer.exe and then run the downloaded executable file. It should install everything you need. 
-        1.3. Run the chimera installer:
+We recommend that you use the latest production release.
+ A small minority of browsers may download the file as chimera-get.py. If yours does, rename the file to chimera-installer.exe and then run the downloaded executable file. It should install everything you need. 
+1.3. Run the chimera installer:
 
-            If you choose to save the chimera installer, rather than run it immediately, run it now. 
+If you choose to save the chimera installer, rather than run it immediately, run it now. 
     
-        1.4. Double check that shortcuts were created:
-            If requested, after the installation there should be an additional shortcut for chimera on the desktop. There should also be a UCSF Chimera menu in the Start\Programs menu with various shortcuts.
+1.4. Double check that shortcuts were created:
+If requested, after the installation there should be an additional shortcut for chimera on the desktop. There should also be a UCSF Chimera menu in the Start\Programs menu with various shortcuts.
 
 
-     2. Quick Installation instructuctions for Ubuntu. 
+2. Quick Installation instructuctions for Ubuntu. 
  
  
-        Download [Chimera release](https://www.cgl.ucsf.edu/chimera/download.html);
+ Download [Chimera release](https://www.cgl.ucsf.edu/chimera/download.html);
  
-        We need to make this file executable. In the directory with downloaded file type this:
+  We need to make this file executable. In the directory with downloaded file type this:
 
-        ``` 
-        chmod +x chimera-1.13-linux_x86_64.bin 
-        ./chimera-1.17.3-linux_x86_64.bin 
-        ```
+```bash
+ chmod +x chimera-1.13-linux_x86_64.bin 
+./chimera-1.17.3-linux_x86_64.bin 
+```
 
-        When asked for installation location delete what is written and type this: 
+When asked for installation location delete what is written and type this: 
 
-        ```
-        ~/chimera/
-        yes
-        1
-        ```
+```
+~/chimera/
+ yes
+ 1
+```
 
-        That's all. 
+That's all. 
 
 
 
 # Download and install FoldX
 
-    Download statically linked binary
-        go to [http://foldx.crg.es](http://foldx.crg.es)
-        login
-        select a file from the download section
+Download statically linked binary
+go to [http://foldx.crg.es](http://foldx.crg.es)
+login
+select a file from the download section
 
-    Copy the binary to a system-wide location, for example:
+Copy the binary to a system-wide location, for example:
+```bash
+sudo cp foldx_2.5.2.linux /usr/local/bin/foldx
+```
+Make sure it is executable
+```bash
+sudo chmod 755 /usr/local/bin/foldx
+```
+Test
 
-    sudo cp foldx_2.5.2.linux /usr/local/bin/foldx
-    ```
-    ## Make sure it is executable
-    sudo chmod 755 /usr/local/bin/foldx
-    ```
-    Test
-
-    First test that you can start Fold-X itself (sometimes there are license-issues):
-    ```
-    foldx
-    ```
+First test that you can start Fold-X itself (sometimes there are license-issues):
+ ```bash
+foldx
+```
 
 # Download and install Gnuplot
 
-    from rpm or debian
+from rpm or debian
 
-        install the gnuplot package with your favorite package manager
+install the gnuplot package with your favorite package manager
 
-        from source:
+from source:
 
-            download from http://www.gnuplot.info/download.html
+ download from http://www.gnuplot.info/download.html
 
-            unpack the tarball and then build, test, and install it:
-            ```
-            cd gnuplot-4.2.0 ; ./configure ; make
-            make check
-            make install
-            ```
+unpack the tarball and then build, test, and install it:
+```bash
+cd gnuplot-4.2.0 ; ./configure ; make
+make check
+make install
+```
 
 # Download and install xmgrace
-        from source: 
-            from rpm or debian
+from source: 
+from rpm or debian
 
-            install the xmgrace package with your favorite package manager
+install the xmgrace package with your favorite package manager
 
 # Download and install PROPKA3
-        The easiest way to install a release of PROPKA3 is from the PyPI archive with the command
-            ```
-            pip install --upgrade propka
-            ```
+The easiest way to install a release of PROPKA3 is from the PyPI archive with the command
+```bash
+pip install --upgrade propka
+```
    
