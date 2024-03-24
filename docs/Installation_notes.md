@@ -1,10 +1,10 @@
 # install GROMACS on Linux
-    1. Update Your Packages
+1. Update Your Packages
             ```
             sudo apt update 
             sudo apt upgrade
             ```
-    2. Install Prerequisites
+ 2. Install Prerequisites
             Let’s start by installing cmake.
             ```
             sudo apt install cmake
@@ -13,27 +13,27 @@
             ```
             sudo apt install build-essential
             ```
-    3. Download and Unpack your Desired GROMACS Version
+3. Download and Unpack your Desired GROMACS Version
             the first thing you should do is download the tarball of this specific version of GROMACS
             ```
             wget https://ftp.gromacs.org/gromacs/gromacs-2022.3.tar.gz
             tar xvf gromacs-2022.3.tar.gz
             ```
-    4. Now create a build directory and move into it.
+4. Now create a build directory and move into it.
 
             ```
             cd gromacs-2022.3
             mkdir build
             cd build
             ```
-    5. Now, it’s time to compile the source code and install GROMACS:
+5. Now, it’s time to compile the source code and install GROMACS:
             ```
             cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSION_DOWNLOAD=ON
             make 
             make check 
             sudo make install
             ```
-    Note
+Note
 
         This is the stage where one can customize its GROMACS installation as needed. For instance, if you want to get the mpi version of GROMACS you can simply add this flag -DGMX_MPI=on.
 
@@ -58,7 +58,7 @@
 
 
 
-    ## Enabling Optimizations for Your Simulation
+  ## Enabling Optimizations for Your Simulation
 
         The optimizations in this section are not yet enabled by default. The new code paths have been verified by the standard GROMACS regression tests, but still lack substantial “real-world” testing. 
 
@@ -127,7 +127,7 @@
         The third line offloads all force calculations to the GPU, as described earlier.
 
         The final -nstlist 400 option instructs GROMACS to update the neighbor list with a frequency of 400 steps. This option can be adapted without any loss of accuracy when using the Verlet scheme. We found this value to give the best performance through experimentation.
-        
+
         for more information visit this [tutorial](https://developer.nvidia.com/blog/creating-faster-molecular-dynamics-simulations-with-gromacs-2020/)
  
 # Download and install Chimera 
