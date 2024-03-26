@@ -1,6 +1,15 @@
+
+### this document is not yet complete
+
+
+
+
+
+
+
 # Post-processing and analysis tools
 
-nto post-processing and analysis using a variety of tools provided by GROMACS. These tools allow us to extract valuable insights from the simulation trajectory. Specifically, we'll explore functionalities to generate thermodynamic properties, as well as tools to derive radial distribution functions and correlation functions.
+we proceed in this step post-processing and analysis using a variety of tools provided by GROMACS. These tools allow us to extract valuable insights from the simulation trajectory. Specifically, we'll explore functionalities to generate thermodynamic properties, as well as tools to derive radial distribution functions and correlation functions.
 # extract and plot thermodynamic properties from a GROMACS simulation
 
 Throughout a simulation, it's crucial to continuously track various thermodynamic properties to ensure adherence to our intended trajectory. For this purpose, we employ the "gmx energy" command.
@@ -17,6 +26,11 @@ Enter the 15 to generate an XMGrace file that includes the variation of the temp
 
 Now that we have our xvg file we can create a plot to observe how the selected property evolved along the simulation.
 # Visualising with VMD
+Now we are going to look at the simulation in vmd
+```bash
+vmd confout.gro traj.trr
+```
+
 # Generating an index file
 
 By default GROMACS creates a default index file for your system. This means that when you don’t specify an index file GROMACS will use the default one.
@@ -24,13 +38,14 @@ By default GROMACS creates a default index file for your system. This means that
 In most cases, the default index file provided by GROMACS will do just fine.
 
 However, in some others, this might not be enough, and you will need to create your own index file with some special groups of atoms that you need for your investigations.
-
+```bash
 gmx make_ndx -f system.gro -o index.ndx
-
+```
 In the bottom of the screen you will find a series of commands that you can use to create new groups for your analysis
 # Root mean squared deviation
+```bash
  gmx rms -s npt.tpr -f traj.trr -n 5pep.ndx -o rmsd.xvg -tu ns
-
+```
 
  Select option 4 to do the Backbone of the protein. The -tu option gives the time unit.
 
@@ -72,16 +87,17 @@ This process involves two key steps:
 
 You can use the gmx convert-tpr as follows:
 
-
+```bash
 gmx_mpi convert-tpr -s md_10.tpr -extend 10000 -o md_20.tpr (-nsteps) (-until)
-
+```
 You can also decide to extend the simulation for a given number of steps (10 steps: -nsteps 10) or until a certain ending time in ps (100 ns ending time: -until 100000). With -nsteps -1 you will get an infinite number of steps so that you can decide when to stop the simulation.
 
 Now we can run the new tpr file (md_20.tpr) starting from the last checkpoint.
-
+```bash
 gmx mdrun -v -deffnm md_20 -cpi md_10.cpt -noappend
-
+```
 after the simulation finished
 You can finally proceed to concatenate the new trajectory to the previous one using
-
+```bash
 gmx trjcat -f md_10.xtc md_20.part0002.xtc -o final.xtc
+```
