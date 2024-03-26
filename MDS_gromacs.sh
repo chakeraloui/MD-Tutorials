@@ -181,7 +181,7 @@ gmx grompp \
 
 
 #launch the simulation with the mdrun command
-gmx mdrun -v -deffnm em
+gmx mdrun -v -deffnm em -nb gpu
 
 
 #Syntax
@@ -223,7 +223,7 @@ printf "4 4" | gmx rms -f nvt.trr -s nvt.tpr -o nvt_rmsd.xvg
 echo "minimising energy:NPT equilibration."
 gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
 
-gmx mdrun -deffnm npt
+gmx mdrun -deffnm npt -nb gpu
 
 printf "17 0" | gmx energy -f npt.edr -o pressure.xvg
 echo "check the RMSD value to control that the system has properly equilibrated at constant pressure"
@@ -231,7 +231,7 @@ printf "4 4" | gmx rms -f npt.trr -s npt.tpr -o npt_rmsd.xvg
 echo "starting simulation"
 
 gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md.tpr -po mdout.mdp
-gmx mdrun -v -deffnm md
+gmx mdrun -v -deffnm md -nb gpu
 
 # fin de la simulation
 echo -e "Fin de la simulation \n"

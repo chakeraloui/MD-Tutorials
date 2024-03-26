@@ -14,4 +14,15 @@
 - OPTIONAL: Propka, [installation instructions](https://github.com/jensengroup/propka-3.1)
 
 # 2.How to use this Tutorial
- to do
+ The workflow takes the protein and ligand PDB codes, and is executed in the following order of steps:
+ Equilibration
+
+
+Run workflow on molecule with PDB code
+ ./MDS_gromacs.sh PDB-code
+
+
+
+ RUN MDS_Analyse.sh for analysis
+ 
+ ./MDS_gromacs.sh
