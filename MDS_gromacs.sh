@@ -55,7 +55,7 @@ FoldX --command=RepairPDB --pdb=$1.pdb
 
 
 echo "Assessing the protonation states of the protein.."
-propka3 $1\_clean.pdb
+propka3 $1\.pdb  #_clean.pdb
 
 echo "Fetching  the CHARMM force field.."
 
