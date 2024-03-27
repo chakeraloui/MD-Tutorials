@@ -11,7 +11,19 @@ echo -e "Running gromacs MDS ...\n"
 #outPutDir="simulation_date" # à modifier à chaque analyse
 #mkdir $outPutDir
 
-pip install propka
+#pip install propka
+# Vérifie si 'propka' est installé en utilisant pip list
+if pip list | grep -F propka > /dev/null; then
+    echo "Le package 'propka' est déjà installé."
+else
+    echo "Installation du package 'propka'..."
+    pip install propka
+    if [ $? -eq 0 ]; then
+        echo "'propka' a été installé avec succès."
+    else
+        echo "L'installation de 'propka' a échoué."
+    fi
+fi
 
 # script a partir d un tuto internet:
 # Lysozyme PDB code 1AKI http://www.mdtutorials.com/gmx/lysozyme/01_pdb2gmx.html
