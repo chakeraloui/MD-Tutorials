@@ -31,7 +31,7 @@ fi
 # telecharcher  le fichier pdb (wget https://files.rcsb.org/download/1AKI.pdb) 
 # Preparer les fichiers de parametres rep configs/
 #wget http://www.mdtutorials.com/gmx/lysozyme/Files/ions.mdp
-#wget http://www.mdtutorials.com/gmx/lysozyme/Files/minim.mdp
+#wget http:/https://github.com/chakeraloui/MDS-Tutorials/tree/main/www.mdtutorials.com/gmx/lysozyme/Files/minim.mdp
 #wget http://www.mdtutorials.com/gmx/lysozyme/Files/nvt.mdp
 #wget http://www.mdtutorials.com/gmx/lysozyme/Files/npt.mdp
 #wget http://www.mdtutorials.com/gmx/lysozyme/Files/md.mdp
@@ -55,7 +55,7 @@ FoldX --command=RepairPDB --pdb=$1.pdb
 
 
 echo "Assessing the protonation states of the protein.."
-propka3 $1\.pdb  #_clean.pdb
+propka3 $1\_Repair.pdb  #_clean.pdb
 
 echo "Fetching  the CHARMM force field.."
 
@@ -63,7 +63,7 @@ wget http://mackerell.umaryland.edu/download.php?filename=CHARMM_ff_params_files
 
 echo "Removing Water Molecules"
 
-grep -v HOH $1 > $1\_clean_protein.pdb
+grep -v HOH $1\_Repair.pdb > $1\_clean_protein.pdb
 echo "Creating a Gromacs topology (PDB2GMX)"
 gmx pdb2gmx \  
 -f $1\_clean_protein.pdb \
