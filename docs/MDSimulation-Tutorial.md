@@ -305,7 +305,7 @@ To obtain an xvg file for the potential you can type:
 ```
 Let’s assume that you generated a potential.xvg file, that is an XMGrace file that has the timestep in the first column and the total potential energy of the system in the second column. We can plot it to check that the energy has decreased and is now at or near a minimum.ofcorse we supposed that you have Grace installed.
 
-	```bash
+```bash
 
 xmgrace volume.xvg
 ```
