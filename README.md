@@ -19,10 +19,17 @@
 
 
 Run workflow on molecule with PDB code
- ./MDS_gromacs.sh PDB-code
 
+```bash
+
+./MDS_gromacs.sh PDB-code
+ 
+```
 
 
  RUN MDS_Analyse.sh for analysis
+ ```bash
  
  ./MDS_gromacs.sh
+ 
+ ```
