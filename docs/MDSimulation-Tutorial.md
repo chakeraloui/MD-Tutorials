@@ -325,6 +325,9 @@ After successful energy minimization, confirming the system's geometry and solve
 
 In this stage, we will constrain the water molecules and allow only the movement of water and ions. We will utilize the “nvt.mdp” file, which contains the input parameters necessary for NVT equilibration.
 
+Here you find the .mdp parameters to play with the temperatures of your system
+
+(https://manual.gromacs.org/documentation/current/user-guide/mdp-options.html#simulated-annealing)
 
 ```bash	
 gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
@@ -370,6 +373,7 @@ The RMSD quickly converges to a stable value signaling that the system has equil
 Following the NVT equilibration step, which stabilized the system's temperature, the next phase involves equilibrating the system's pressure under an NPT ensemble. This ensemble maintains constant values for the Number of particles, Pressure, and Temperature. During this step, only water and ions are allowed to move.
 
 Similar to the procedure for NVT equilibration, we will execute "grompp" and "mdrun." However, this time, we will include the "-t" flag to incorporate the checkpoint file from the NVT equilibration. This file contains all the necessary state variables required to continue our simulation.
+
 ```bash
 gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
 ```
@@ -400,11 +404,11 @@ As you see, the RMSD values are very stable over time, indicating that the syste
 
 
 We will also look at the density
-
+```bash
 gmx energy -f npt.edr -o density.xvg
+```
 Type "23 0" at the prompt to select the density of the system and exit.
 
-Then we will unfix protein. Create npt1.mdp from npt.mdp commenting the second string in it.
 
 
 # 4.MD Calculation
